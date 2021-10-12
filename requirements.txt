@@ -1,0 +1,6 @@
+python-magic>=0.4.18
+libmagic>=1.0
+python-magic-bin>=0.4.14
+javaobj-py3>=0.4.1
+pepy>=1.2.0
+ptyprocess>=0.5
