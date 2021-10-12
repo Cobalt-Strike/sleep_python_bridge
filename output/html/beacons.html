@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
+        <!--  beacon style sheet--> 
+        <link rel="stylesheet" href="css/beacons.css">
+        <!--  Font Awesome (v5 Does not work ??)--> 
+        <!-- <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.3.1/css/all.css"> -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="js/d3.v4.min.js" type="text/javascript"></script>
+
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+        <link href="https://static.helpsystems.com/cobalt-strike/css/mburger.css" rel="stylesheet">
+        <link href="https://static.helpsystems.com/cobalt-strike/css/mhead.css" rel="stylesheet">
+        
+        <link href='https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+        
+        <link href="css/style.css" rel="stylesheet">
+        
+        <title>Cobalt Strike Beacon Graph Viewer</title>
+
+
+    </head>
+    <body>
+
+        <div>
+
+            <nav class="navbar navbar-expand-md shadow-sm bg-white mh-head" id="my-header">
+                <div class="container"> 
+                    <a class="navbar-brand" href="/"> 
+                        <img src="https://static.helpsystems.com/cobalt-strike/img/cobaltstrike-logo-header.png" class="img-fluid" alt="Cobalt Strike"/>
+                    </a>
+                    
+                    <div class="collapse navbar-collapse flex-column" id="my-menu">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item"> <a class="nav-link text-nowrap " href="https://cobaltstrike.com">cobaltstrike.com</a> </li>
+    
+                            <li class="nav-item"> <a class="nav-link text-nowrap " href="https://cobaltstrike.com/contact">Contact Us</a> </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://www.helpsystems.com" target="_blank">
+                                    <img src="https://static.helpsystems.com/cobalt-strike/img/helpsystems-icon-blue-grey.png" class="img-fluid d-none d-md-inline-block" alt="HelpSystems"/>
+                                    <span class="d-inline-block d-md-none"> HelpSystems</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+    
+        </div>
+
+
+        <div class="container">
+
+            <p class="lead">
+                <h3 class="display-5">Beacon Log Viewer</h3>
+            </p>
+        </div>
+
+        <div class="container" id="beaconGraph">
+
+            <script src="js/beacons.js"></script>
+
+        </div>
+
+        <div class="container" id="footer">
+
+
+            <footer class="bg-footer-1">
+                <div class="container">
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <a href="https://www.coresecurity.com" target="_blank" class="text-decoration-none">
+                                <img src="https://static.helpsystems.com/cobalt-strike/img/coresecurity.png" class="img-fluid mr-3 mb-2" alt="CoreSecurity Logo"/>
+                            </a>
+        
+                            <a href="https://www.cobaltstrike.com" target="_blank" class="text-decoration-none">
+                                <img src="https://static.helpsystems.com/cobalt-strike/img/cobaltstrike.png" class="img-fluid mb-2" alt="Cobalt Strike Logo"/>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="small mb-1">
+                                Copyright &copy; 2021 HelpSystems. All rights reserved. |
+                                <a href="https://cobaltstrike.com/help-corp-compliance-ethics">Corporate Compliance &amp; Ethics</a> |
+                                <a href="https://blog.cobaltstrike.com">Blog</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+
+       <!-- End -->
+    </body>
+</html>

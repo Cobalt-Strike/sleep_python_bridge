@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+    <link href="https://static.helpsystems.com/cobalt-strike/css/mburger.css" rel="stylesheet">
+    <link href="https://static.helpsystems.com/cobalt-strike/css/mhead.css" rel="stylesheet">
+    
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    
+    <link href="css/style.css" rel="stylesheet">
+    
+    <title>Cobalt Strike Beacon Log Viewer</title>
+
+</head>
+
+<body>
+
+    <div>
+
+        <nav class="navbar navbar-expand-md shadow-sm bg-white mh-head" id="my-header">
+            <div class="container"> 
+                <a class="navbar-brand" href="/"> 
+                    <img src="https://static.helpsystems.com/cobalt-strike/img/cobaltstrike-logo-header.png" class="img-fluid" alt="Cobalt Strike"/>
+                </a>
+                
+                <div class="collapse navbar-collapse flex-column" id="my-menu">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"> <a class="nav-link text-nowrap " href="https://cobaltstrike.com">cobaltstrike.com</a> </li>
+
+                        <li class="nav-item"> <a class="nav-link text-nowrap " href="https://cobaltstrike.com/contact">Contact Us</a> </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.helpsystems.com" target="_blank">
+                                <img src="https://static.helpsystems.com/cobalt-strike/img/helpsystems-icon-blue-grey.png" class="img-fluid d-none d-md-inline-block" alt="HelpSystems"/>
+                                <span class="d-inline-block d-md-none"> HelpSystems</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+
+
+        <div class="container">
+
+            <p class="lead">
+                <h3 class="display-5">Beacon Log Viewer</h3>
+            </p>
+        </div>
+
+        <div class="container" id="logviewTable">
+
+            <table id="logview_table" class="display stripe" style="width:100%">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th data-toggle="tooltip" data-placement="top" title="Time">Timestamp</th>
+                        <th data-toggle="tooltip" data-placement="top" title="HumanTime">DateTime</th>
+                        <th data-toggle="tooltip" data-placement="top" title="Command Type">Type</th>
+                        <th data-toggle="tooltip" data-placement="top" title="Beacon ID">Beacon ID</th>
+                        <th data-toggle="tooltip" data-placement="top" title="User">User</th>
+                        <th data-toggle="tooltip" data-placement="top" title="Command">Command</th>
+                        <th data-toggle="tooltip" data-placement="top" title="Result">Result</th>
+
+                    </tr>
+                </thead>
+
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th>Timestamp</th>
+                        <th>DateTime</th>
+                        <th>Type</th>
+                        <th>Beacon ID</th>
+                        <th>User</th>
+                        <th>Command</th>
+                        <th>Result</th>
+                    </tr>
+                </tfoot>
+            </table>
+
+
+            <footer class="bg-footer-1">
+                <div class="container">
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <a href="https://www.coresecurity.com" target="_blank" class="text-decoration-none">
+                                <img src="https://static.helpsystems.com/cobalt-strike/img/coresecurity.png" class="img-fluid mr-3 mb-2" alt="CoreSecurity Logo"/>
+                            </a>
+        
+                            <a href="https://www.cobaltstrike.com" target="_blank" class="text-decoration-none">
+                                <img src="https://static.helpsystems.com/cobalt-strike/img/cobaltstrike.png" class="img-fluid mb-2" alt="Cobalt Strike Logo"/>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="small mb-1">
+                                Copyright &copy; 2021 HelpSystems. All rights reserved. |
+                                <a href="https://cobaltstrike.com/help-corp-compliance-ethics">Corporate Compliance &amp; Ethics</a> |
+                                <a href="https://blog.cobaltstrike.com">Blog</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+               
+        
+
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/1.10.25/dataRender/hyperLink.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/1.10.25/dataRender/ellipsis.js"></script>
+
+    <script type="text/javascript" charset="utf8" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/1.10.25/dataRender/datetime.js"></script>
+
+    <script src="js/logview_table.js"></script>
+
+
+     
+
+</body>
+
+</html>
