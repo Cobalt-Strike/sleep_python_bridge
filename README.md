@@ -1,6 +1,6 @@
 # Cobalt Strike Sleep Python Bridge
 
-This project is 'bridge' between the sleep and python. It allows the control of a Cobalt Strike teamserver through python without the need for for the standard GUI client. 
+This project is 'bridge' between the sleep and python language. It allows the control of a Cobalt Strike teamserver through python without the need for for the standard GUI client. 
 
 NOTE: This project is very much in BETA. The goal is to provide a playground for testing and is in no way an officially support feature. Perhaps this could be something added in the future to the core product.
 
