@@ -120,6 +120,8 @@ python3 example.py 127.0.0.1 50050 example password ~/cobaltstrike
 
 ### Log Tracker
 
+![](images/logtracker.png)
+
 Beacon logs are available at runtime in a teamserver or through the beacon log files saved on the teamserver. The data is always there, but may not be presented in a way you would like. This is an example of log tracker that use an HTML data grid to quickly view beacon logs.
 
 `beaconlogtracker.py` is a script that connects to a teamserver, extracts the running beacon logs every 30 seconds, saves to `<code>`beaconlogs.json` and, displays in a searchable and sortable HTML data grid.
@@ -141,6 +143,8 @@ Start a webserver from output/html directory
 Connect to http://localhost:8000/beaconlogs.html
 
 ### Payload Generator
+
+![](images/payloadgenerator.png)
 
 A feature often requested by red team operators is the ability to create payloads programmatically with the need for the Cobalt Strike GUI. The reference project did this with a payload generator. This was great, but there is a unique challenge. Aggressor provides several hooks to influence how a payload is built. These hooks are used by the various kits (i.e., artifact kit, sleep mask kit, or UDRL kit). They are normally used by loading an aggressor script through the GUI. This project was extended to allow the loading of external scripts. Without this, using this payload hooks would be difficult. This code could easily be extended to pass the payloads to external functions to add custom obfuscation, embed in a customer loader, or any other modification.
 
@@ -186,6 +190,8 @@ time.sleep(3) # Allow time for the script to load
 ```
 
 ### Beacon Grapher
+
+![](images/beacongrapher.png)
 
 This is beta code that will display beacon in a directed graph.
 
