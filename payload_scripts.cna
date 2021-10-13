@@ -4,7 +4,7 @@ elog("[payload_scripts.cna] Starting...");
 @modules = @("example.cna", "sleepmask.cna", "artifact.cna"); 
 $aggresor_script_base = "payload_scripts/";
 
-# Overload script_resource to help loaded scripts find there stuff
+# Overload script_resource to help loaded scripts find their code
 sub script_resource {
     return(getFileProper($aggresor_script_base,$1));
 }
@@ -15,3 +15,4 @@ foreach $module (@modules) {
     elog("[payload_scripts.cna] Loading " . getFileProper($aggresor_script_base . $module));
     include(getFileProper($aggresor_script_base . $module));
 }
+
