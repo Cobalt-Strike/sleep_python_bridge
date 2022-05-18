@@ -54,7 +54,7 @@ class CSConnector:
 		self.cs_port = cs_port
 		self.cs_directory = cs_directory
 		# NOTE: This is known to work for CS 4.0 and 4.1. This may change in future versions. Possibly look into leveraging CS's agg script (not included on Mac OS systems)
-		self.aggscriptcmd = "java -XX:ParallelGCThreads=4 -XX:+AggressiveHeap -XX:+UseParallelGC -classpath '{}/cobaltstrike.jar' aggressor.headless.Start".format(self.cs_directory)
+		self.aggscriptcmd = "java -XX:ParallelGCThreads=4 -XX:+AggressiveHeap -XX:+UseParallelGC -classpath '{}/cobaltstrike-client.jar' aggressor.headless.Start".format(self.cs_directory)
 		# This gets populated once the connect function is run (in the future, maybe run that function in the initialization?)
 		self.cs_process = None
 
