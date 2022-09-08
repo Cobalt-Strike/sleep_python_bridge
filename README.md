@@ -138,7 +138,7 @@ This will keep beaconlogs.json sync'd with saved and running beacon logs. It syn
 
 Start a webserver from output/html directory
 
-`python3 http.server`
+`python3 -m http.server 8000`
 
 Connect to http://localhost:8000/beaconlogs.html
 
@@ -207,6 +207,7 @@ This will create the beacons.json file used by the javascript grapher.
 
 Start a webserver from output/html directory
 
-`python3 http.server`
+`python3 -m http.server 8000`
 
 Connect to http://localhost:8000/beacons.html
+

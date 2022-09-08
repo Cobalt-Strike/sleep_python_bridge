@@ -52,8 +52,15 @@ def main(args):
         cs_pass=cs_pass,
         cs_directory=cs_directory)
     
-    print(f"[*] Connecting to teamserver: {cs_host}")
-    cs.connectTeamserver()
+    while(1):
+        print(f"[*] Connecting to teamserver: {cs_host}")
+        try:
+           cs.connectTeamserver()
+           break
+        except:
+            print(f"[!] Unable to connect to the teamserver, is it running? Waiting {sleeptime} seconds to try again.")
+            time.sleep(sleeptime)
+            continue
 
     while(1):
         print("[Beacon Log Tracker] Getting beacon logs from teamserver...")
@@ -69,8 +76,9 @@ def main(args):
         # JSON field reference: type, beacon_id, user, command, result, timestamp
 
         if beaconlogresult is None:
-            print("[!] No logs yet. Did you just start the teamserver?")
-            exit()
+            print(f"[!] No logs yet. Waiting {sleeptime} seconds for a beacon to check in.")
+            time.sleep(sleeptime)
+            continue
 
         for log in beaconlogresult:
 
@@ -188,3 +196,4 @@ if __name__ == "__main__":
 
     args = parseArguments()
     main(args)
+
