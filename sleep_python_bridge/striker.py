@@ -418,6 +418,10 @@ class CSConnector:
 		command = "return targets()"
 		return self.ag_get_object(command)
 
+	def get_pivots(self) -> list:
+		command = "return pivots()"
+		return self.ag_get_object(command)
+
 	def connectTeamserver(self):
 		"""Connect to CS team server"""
 
