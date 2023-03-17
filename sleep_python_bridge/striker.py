@@ -140,7 +140,9 @@ class CSConnector:
 		listener: str, 
 		artifact_type: 'ArtifactType', 
 		staged: bool = False, 
-		x64: bool = True
+		x64: bool = True,
+		exit: str = '',
+		callmethod : str = ''
 	) -> bytes:
 		"""Geneartes a Cobalt Strike payload and returns the bytes.
 
@@ -160,10 +162,13 @@ class CSConnector:
 
 		if staged:
 			function = "artifact_stager"
+			cmd = f"return base64_encode(artifact_stager('{listener}', '{artifact_type.value}', '{arch}'))"
 		else:
-			function = "artifact_payload"
+			if len(callmethod) > 0 and len(exit) > 0:
+				cmd = f"return base64_encode(artifact_payload('{listener}', '{artifact_type.value}', '{arch}', '{exit}', '{callmethod}'))"
+			else:
+				cmd = f"return base64_encode(artifact_payload('{listener}', '{artifact_type.value}', '{arch}'))"
 
-		cmd = f"return base64_encode({function}('{listener}', '{artifact_type.value}', '{arch}'))"
 		encoded_bytes = self.ag_get_object(cmd, timeout=30000)
 		# We converted the bytes to b64 for transferring, so now convert them back
 		return base64.b64decode(encoded_bytes)

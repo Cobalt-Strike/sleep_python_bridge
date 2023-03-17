@@ -4,3 +4,4 @@ python-magic-bin>=0.4.14; sys_platform=="win32"
 javaobj-py3>=0.4.1
 pepy>=1.2.0
 ptyprocess>=0.5
+pexpect
