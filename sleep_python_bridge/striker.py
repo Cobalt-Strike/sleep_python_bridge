@@ -376,12 +376,10 @@ class CSConnector:
 		return self.ag_get_object(command)
 
 	def ag_ls_scripts(self) -> str:
-		cmd = 'return ls'
-		self.ag_sendline(cmd)
+		return self.ag_get_string('', script_console_command='ls')
 
 	def ag_load_script(self, script_path):
-		command = f"include(getFileProper('{script_path}'))"
-		self.ag_sendline(command)
+		self.ag_sendline(script_path, 'load')
 
 	def get_local_ip(self) -> str:
 		command = "return localip()"
@@ -496,7 +494,10 @@ class CSConnector:
 
 
 	def ag_sendline(self, cmd, script_console_command='e', sleep_time: int = 0):
-		full_cmd = "{} {};".format(script_console_command, cmd)
+		if '' == cmd:
+			full_cmd = "{}".format(script_console_command)
+		else:
+			full_cmd = "{} {}".format(script_console_command, cmd)
 		#print(full_cmd)
 		self.cs_process.sendline(full_cmd)
 		sleep(sleep_time)

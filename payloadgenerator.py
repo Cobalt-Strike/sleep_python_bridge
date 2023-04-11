@@ -7,6 +7,7 @@ from pprint import pp, pprint
 from pathlib import Path, PurePath
 import json
 import time
+import glob
 ####################
 ## Variables
 
@@ -81,15 +82,15 @@ def main(args):
         cs_pass=cs_pass,
         cs_directory=cs_directory) as cs:
 
-        listeners = cs.get_listeners_stageless()
-
         # Load external scripts (if desired)
-        script_name = "payload_scripts.cna"
-        script_path = Path(script_name).resolve()
+        print("Loading cna scripts from ./payload_scripts")
+        for script in glob.glob("./payload_scripts/*.cna"):
+            cs.ag_load_script(Path(script).resolve())
 
-        cs.ag_load_script(script_path.name)
-        time.sleep(3) # Allow time for the script to load
-        print(f"[*] Loaded {script_name} kit with ag_load_script")
+        #time.sleep(3) # Allow time for the scripts to load
+        # Output the loaded scripts
+        loadedScripts = cs.ag_ls_scripts()
+        print(loadedScripts)
 
         payloadTypes = {
             'dll' : ArtifactType.DLL,
@@ -106,6 +107,8 @@ def main(args):
 
         payloads = [x for x in cs_types.split(',') if x in payloadTypes]
 
+        # Generate the payloads for each listener
+        listeners = cs.get_listeners_stageless()
         for listener in listeners:
             if cs_listener != 'all' and listener.lower() != cs_listener.lower():
                 continue
