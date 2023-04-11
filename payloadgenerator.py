@@ -37,7 +37,7 @@ def parseArguments():
     opt.add_argument('-a', '--arch', metavar='arch', default='both', choices=['both', 'x64', 'x86'], help=f"Specify payload architecture. Choices: x86, x64. Default: payloads for both are generated")
     opt.add_argument('-t', '--payload-types', metavar='types', default='exe,dll,bin', help=f"Comma separated list of payload types to generate keyed by file extensions. Choices: exe,dll,svc.exe,bin,ps1,py,vbs or use 'all' to compile all at once. Default: exe,dll,bin")
     opt.add_argument('-e', '--exit', metavar='exit', choices=['thread', 'process'], default='process', help=f"Payload exit method. Choices: thread, process. Default: process")
-    opt.add_argument('-c', '--call-method', metavar='method', choices=['direct', 'indirect', 'none', ''], default='', help=f"Payload exit method. Choices: indirect, direct, none. Default: <empty> (backwards compatible with Cobalt pre 4.8)")
+    opt.add_argument('-c', '--call-method', metavar='method', choices=['direct', 'indirect', 'none', ''], default='', help=f"System call method. Choices: indirect, direct, none. Default: <empty> (backwards compatible with Cobalt pre 4.8)")
 
     args = parser.parse_args()
 
