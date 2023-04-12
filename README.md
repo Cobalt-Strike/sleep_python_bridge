@@ -1,12 +1,12 @@
 # Cobalt Strike Sleep Python Bridge
 
-This project is 'bridge' between the sleep and python language. It allows the control of a Cobalt Strike teamserver through python without the need for for the standard GUI client. 
+This project is 'bridge' between the sleep and python language. It allows the control of a Cobalt Strike teamserver through python without the need for the standard GUI client. 
 
 NOTE: This project is very much in BETA. The goal is to provide a playground for testing and is in no way an officially support feature. Perhaps this could be something added in the future to the core product.
 
 The project was inspired by the work done by @BinaryFaultline and @Mcgigglez16 in the project https://github.com/emcghee/PayloadAutomation. I want to offer a special thanks you both !!
 
-The heart of this bridge is a python implementation of a headless Cobalt Strike client. This is achieved by using the Aggressor Script Console provided by **agscript** as the engine. Agscript allows for headless interaction with Cobalt Stike (https://www.cobaltstrike.com/aggressor-script/index.html). The 'bridge' works by using python helper functions in sleepy.py to generate the needed sleep commands expected by the agscript console. Instead of writing the sleep functions, striker.py provides helper functions that abstracts sleep and allows the use of python. 
+The heart of this bridge is a python implementation of a headless Cobalt Strike client. This is achieved by using the Aggressor Script Console provided by **agscript** as the engine. Agscript allows for headless interaction with Cobalt Strike (https://www.cobaltstrike.com/aggressor-script/index.html). The 'bridge' works by using python helper functions in sleepy.py to generate the needed sleep commands expected by the agscript console. Instead of writing the sleep functions, striker.py provides helper functions that abstracts sleep and allows the use of python. 
 
 ## Changes of note from the original project
 
@@ -28,14 +28,13 @@ Because the PayloadAutomation project inspired this, it started with much of the
 
 Item                | Description
 --------------------|------------
-sleep_python_bridge | The libray that allows python to interface with Cobalt Strike
+sleep_python_bridge | The library that allows python to interface with Cobalt Strike
 output/html         | path for html data viewers
 output/html/data    | path for json data used by data viewer
 output/payloads     | path for saved payloads (used by payload generator)
 payload_scripts     | path for external scripts to be loaded by payloadgenerator.py
-payload_scripts.cna | init script for loading external scripts loaded by payloadgenerator.py
 beaconlogtracker.py | Implementation of a beacon log tracker the uses an HTML datagrid to display beacon logs
-payloadgenerator.py | Implementation of a beacon payload genertor that create payloads for each listener
+payloadgenerator.py | Implementation of a beacon payload generator that create payloads for each listener
 beacongrapher.py    | Implementation of a beacon graph tracker the uses an HTML javascript directed graph to beacons
 
 ## TODO
@@ -52,7 +51,7 @@ beacongrapher.py    | Implementation of a beacon graph tracker the uses an HTML 
 
 ## How to use
 
-The examples in this project may be the easist way to understand but is the script example.py
+The examples in this project may be the easiest way to understand but is the script example.py
 
 ```Python
 #!/usr/local/bin/python3
@@ -113,7 +112,7 @@ if __name__ == "__main__":
 Call the script
 
 ```bash
-python3 example.py 127.0.0.1 50050 example password ~/cobaltstrike
+python3 example.py 127.0.0.1 50050 example password /path/to/cobaltstrike
 ```
 
 ## Practical Examples
@@ -126,13 +125,13 @@ Beacon logs are available at runtime in a teamserver or through the beacon log f
 
 `beaconlogtracker.py` is a script that connects to a teamserver, extracts the running beacon logs every 30 seconds, saves to `<code>`beaconlogs.json` and, displays in a searchable and sortable HTML data grid.
 
-Beacons logs are always saved to the logs directory, but this is an alternate way to track the in memory logs with an alternate viewer. If the teamserver is restarted the in memory logs are lost and you must refer to the logs stored in the logs directory on the teamserver. This script keep in memory logs sync'd to the file `beaconlogs.json`. This way you have a quick and easy way to visualize all data without digging through the logs directory even if Cobalt Strike is restarted.
+Beacons logs are always saved to the logs directory, but this is an alternate way to track the in memory logs with an alternate viewer. If the teamserver is restarted the in memory logs are lost, and you must refer to the logs stored in the logs directory on the teamserver. This script keep in memory logs synced to the file `beaconlogs.json`. This way you have a quick and easy way to visualize all data without digging through the logs directory even if Cobalt Strike is restarted.
 
 Start the script by having it connect to your teamserver to sync logs every 30 seconds
 
 Usage: 
 
-`python3 beaconlogtracker.py 127.0.0.1 50050 logtracker password ~/cobaltstrike`
+`python3 beaconlogtracker.py 127.0.0.1 50050 logtracker password /path/to/cobaltstrike`
 
 This will keep beaconlogs.json sync'd with saved and running beacon logs. It syncs every 30 seconds
 
@@ -146,49 +145,159 @@ Connect to http://localhost:8000/beaconlogs.html
 
 ![](images/payloadgenerator.png)
 
-A feature often requested by red team operators is the ability to create payloads programmatically with the need for the Cobalt Strike GUI. The reference project did this with a payload generator. This was great, but there is a unique challenge. Aggressor provides several hooks to influence how a payload is built. These hooks are used by the various kits (i.e., artifact kit, sleep mask kit, or UDRL kit). They are normally used by loading an aggressor script through the GUI. This project was extended to allow the loading of external scripts. Without this, using this payload hooks would be difficult. This code could easily be extended to pass the payloads to external functions to add custom obfuscation, embed in a customer loader, or any other modification.
+A feature often requested by red team operators is the ability to create payloads programmatically without the need for the Cobalt Strike GUI. The reference project did this with a payload generator. This was great, but there is a unique challenge. Aggressor provides several hooks to influence how a payload is built. These hooks are used by the various kits (i.e., artifact kit, sleep mask kit, or UDRL kit). They are normally used by loading an aggressor script through the GUI. This project was extended to allow the loading of external scripts. Without this, using this payload hooks would be difficult. This code could easily be extended to pass the payloads to external functions to add custom obfuscation, embed in a customer loader, or any other modification.
 
-The payload generator script connecta to the teamserver, loads the additional scripts, and creates payloads.
+The payload generator script connects to the teamserver, loads the additional scripts, and creates payloads.
 
-Usage:
+#### Usage (No external kits):
 
-- Update payload_scripts.cna with external scripts (if needed. and see the note below on external scripts)
-- Add external scripts to the payload_scripts directory
-- run `python3 payloadgenerator.py 127.0.0.1 50050 payloads password ~/cobaltstrike`
+- run `python3 payloadgenerator.py 127.0.0.1 50050 payloads password /path/to/cobaltstrike`
 
-**NOTE: Loading of external scripts**
+#### Usage (with external kit)
 
-Loading external scripts is not always needed but it used for payload modification scripts that include payload hooks (i.e., artifiact, sleepmask, and udrl kits). If you load scripts from the Cobalt Strike GUI, payloads will honor these scripts from the GUI but not from the agscript client (These are different clients). You must load the scripts in your python code. 
+This example will list the steps to add the Arsenal kit which has the artifact and sleep mask kits enabled.
 
-- scripts must be added to a 'scripts' directory
-- the data should be flat for best file path resolution
-- Currently there is no feedback provided that allows you to know if a script was successfully loaded. You can use the `elog` function to monitor the event log for dirty debugging.
+- Update the /path/to/arsenal_kit/arsenal_kit.config file to enable the artifact and sleep mask kits
+- [Optional] Make any modifications to the artifact and sleep mask kits as needed
+- Build the arsenal kit with /path/to/arsenal_kit/build_arsenal_kit.sh
+- Copy the arsenal kit distribution files to the payload_scripts directory.  
+`cp -r /path/to/arsenal_kit/dist/* /path/to/sleep_python_bridge/payload_scripts`
+- [Optional] See logging section for more information on additional modifications 
+- run `python3 payloadgenerator.py 127.0.0.1 50050 payloads password /path/to/cobaltstrike`
 
-The default `script_resource` function adds "/scripts/" to the path during resolution. This must be changed or paths built with the expected usage. Without updating, this function flow to loaded scripts and can cause weird path issues. The playloadgenerator script has an inline patch to help with this.
+#### logging
 
-Code references for loading external scripts
+Normally when using the GUI the external scripts can use the `println` aggressor function to output information to the Script Console which is useful for feedback or debugging. When using the payloadgenerator.py the `println` output is lost and the only option that is available is the `elog` function.  When using `elog` the GUI is needed to view the information in the Event Log.  
 
-**striker.py**
+Continuing from the 'with external kit' usage example lets update the /path/to/sleep_python_bridge/payload_scripts/arsenal_kit.cna file and change the two occurrences of `println` to `elog`.  With this change all the arsenal kit logging will now be available in the GUI Event Log.
+
+#### Loading of external scripts
+
+Loading external scripts is not always needed except for payload modification scripts that include payload hooks (i.e., artifact, sleep mask, and udrl kits). If you load scripts from the Cobalt Strike GUI, payloads will honor these scripts from the GUI but not from the agscript client (These are different clients). You must add the scripts and supporting files into the payload_scripts directory. 
+
+The payloadgenerator.py will automatically load any `.cna` script that is located at the top level payload_scripts directory.  Any `.cna` script that is located in a subdirectory will not be loaded. 
+
+Example directory structure with the Arsenal Kit.
+```
+$ ls -1R ./payload_scripts
+./payload_scripts:
+arsenal_kit.cna
+artifact
+sleepmask
+
+./payload_scripts/artifact:
+artifact32big.dll
+artifact32big.exe
+artifact32.dll
+artifact32.exe
+artifact32svcbig.exe
+artifact32svc.exe
+artifact64big.exe
+artifact64big.x64.dll
+artifact64.exe
+artifact64svcbig.exe
+artifact64svc.exe
+artifact64.x64.dll
+artifact.cna
+
+./payload_scripts/sleepmask:
+sleepmask.cna
+sleepmask_pivot.x64.o
+sleepmask_pivot.x86.o
+sleepmask.x64.o
+sleepmask.x86.o
+```
+
+#### Usage (additional options for 4.8)
+
+Thanks to a recent update provided by @mgeeky the payloadgenerator.py script now supports additional arguments to support new artifact_payload function parameters added in 4.8.  With these arguments you now have more control over what payloads are generated.
 
 ```
-	def ag_load_script(self, script_path):
-		command = f"include(getFileProper('{script_path}'))"
-		self.ag_sendline(command)
+$ python3 payloadgenerator.py --help
+------------------------
+Beacon Payload Generator
+------------------------
+usage: payloadgenerator.py [-h] [-o path] [-l name] [-a arch] [-t types] [-e exit] [-c method] host port username password path
+
+positional arguments:
+  host                  The teamserver host.
+  port                  The teamserver port.
+  username              The desired username.
+  password              The teamserver password.
+  path                  Directory to CobaltStrike
+
+optional arguments:
+  -h, --help            show this help message and exit
+
+optional parameters:
+  -o path, --payload-path path
+                        Where to save generated payloads. Default: output/payloads/
+  -l name, --listener name
+                        Specify listener name to get payloads for. Default: payloads for all listeners will be produced
+  -a arch, --arch arch  Specify payload architecture. Choices: x86, x64. Default: payloads for both are generated
+  -t types, --payload-types types
+                        Comma separated list of payload types to generate keyed by file extensions. Choices: exe,dll,svc.exe,bin,ps1,py,vbs or use 'all' to compile all at once.
+                        Default: exe,dll,bin
+  -e exit, --exit exit  Payload exit method. Choices: thread, process. Default: process
+  -c method, --call-method method
+                        System call method. Choices: indirect, direct, none. Default: <empty> (backwards compatible with Cobalt pre 4.8)
 ```
 
-**init.cna**
+#### Examples
 
-Overloads `script_resource` to point to the root of the scripts directory
-
-**Timing**
-
-The script needs time to load. Currently there is no feedback provide that allows you to know if a script was successfully loaded. You can use the `elog` function to monitor the event log for dirty debugging.
-
-```python
-cs.ag_load_script(script_path.name)
-time.sleep(3) # Allow time for the script to load
 ```
+$python3 payloadgenerator.py 127.0.0.1 50050 payloads password /path/to/cobaltstrike -o /share/payloads/ -c indirect -a x64
+------------------------
+Beacon Payload Generator
+------------------------
+[*] Connecting to teamserver: 127.0.0.1
+Loading cna scripts from ./payload_scripts
 
+Scripts
+-------
+arsenal_kit.cna
+console.cna
+
+[*] Creating stageless payloads for listener: http1
+[*] Creating http1.x64.exe
+[*] Creating http1.x64.dll
+[*] Creating http1.x64.bin
+
+$python3 payloadgenerator.py 127.0.0.1 50050 payloads password /path/to/cobaltstrike -o /share/payloads/ -c indirect -a x64 -t exe
+------------------------
+Beacon Payload Generator
+------------------------
+[*] Connecting to teamserver: 127.0.0.1
+Loading cna scripts from ./payload_scripts
+
+Scripts
+-------
+arsenal_kit.cna
+console.cna
+
+[*] Creating stageless payloads for listener: http1
+[*] Creating http1.x64.exe
+
+$python3 payloadgenerator.py 127.0.0.1 50050 payloads password /path/to/cobaltstrike -o /share/payloads/
+------------------------
+Beacon Payload Generator
+------------------------
+[*] Connecting to teamserver: 127.0.0.1
+Loading cna scripts from ./payload_scripts
+
+Scripts
+-------
+arsenal_kit.cna
+console.cna
+
+[*] Creating stageless payloads for listener: http1
+[*] Creating http1.x86.exe
+[*] Creating http1.x86.dll
+[*] Creating http1.x86.bin
+[*] Creating http1.x64.exe
+[*] Creating http1.x64.dll
+[*] Creating http1.x64.bin
+```
 ### Beacon Grapher
 
 ![](images/beacongrapher.png)
@@ -201,7 +310,7 @@ Start a webserver and open http://localhost:8000/beacons.html
 
 Usage:
 
-`python3 beacongrapher.py 127.0.0.1 50050 grapher password ~/cobaltstrike`
+`python3 beacongrapher.py 127.0.0.1 50050 grapher password /path/to/cobaltstrike`
 
 This will create the beacons.json file used by the javascript grapher.
 

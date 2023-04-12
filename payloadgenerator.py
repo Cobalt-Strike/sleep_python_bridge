@@ -7,6 +7,7 @@ from pprint import pp, pprint
 from pathlib import Path, PurePath
 import json
 import time
+import glob
 ####################
 ## Variables
 
@@ -37,7 +38,7 @@ def parseArguments():
     opt.add_argument('-a', '--arch', metavar='arch', default='both', choices=['both', 'x64', 'x86'], help=f"Specify payload architecture. Choices: x86, x64. Default: payloads for both are generated")
     opt.add_argument('-t', '--payload-types', metavar='types', default='exe,dll,bin', help=f"Comma separated list of payload types to generate keyed by file extensions. Choices: exe,dll,svc.exe,bin,ps1,py,vbs or use 'all' to compile all at once. Default: exe,dll,bin")
     opt.add_argument('-e', '--exit', metavar='exit', choices=['thread', 'process'], default='process', help=f"Payload exit method. Choices: thread, process. Default: process")
-    opt.add_argument('-c', '--call-method', metavar='method', choices=['direct', 'indirect', 'none', ''], default='', help=f"Payload exit method. Choices: indirect, direct, none. Default: <empty> (backwards compatible with Cobalt pre 4.8)")
+    opt.add_argument('-c', '--call-method', metavar='method', choices=['direct', 'indirect', 'none', ''], default='', help=f"System call method. Choices: indirect, direct, none. Default: <empty> (backwards compatible with Cobalt pre 4.8)")
 
     args = parser.parse_args()
 
@@ -81,15 +82,15 @@ def main(args):
         cs_pass=cs_pass,
         cs_directory=cs_directory) as cs:
 
-        listeners = cs.get_listeners_stageless()
-
         # Load external scripts (if desired)
-        script_name = "payload_scripts.cna"
-        script_path = Path(script_name).resolve()
+        print("Loading cna scripts from ./payload_scripts")
+        for script in glob.glob("./payload_scripts/*.cna"):
+            cs.ag_load_script(Path(script).resolve())
 
-        cs.ag_load_script(script_path.name)
-        time.sleep(3) # Allow time for the script to load
-        print(f"[*] Loaded {script_name} kit with ag_load_script")
+        #time.sleep(3) # Allow time for the scripts to load
+        # Output the loaded scripts
+        loadedScripts = cs.ag_ls_scripts()
+        print(loadedScripts)
 
         payloadTypes = {
             'dll' : ArtifactType.DLL,
@@ -106,6 +107,8 @@ def main(args):
 
         payloads = [x for x in cs_types.split(',') if x in payloadTypes]
 
+        # Generate the payloads for each listener
+        listeners = cs.get_listeners_stageless()
         for listener in listeners:
             if cs_listener != 'all' and listener.lower() != cs_listener.lower():
                 continue
