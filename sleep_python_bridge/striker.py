@@ -54,7 +54,7 @@ class CSConnector:
 		self.cs_port = cs_port
 		self.cs_directory = cs_directory
 		# NOTE: Leverage agscript to ensure jar unpacked, and client jar called correctly (v4.6 change)
-		self.aggscriptcmd = "'{}/agscript'".format(self.cs_directory)
+		self.aggscriptcmd = f'{self.cs_directory}/client/agscript'
 		# This gets populated once the connect function is run (in the future, maybe run that function in the initialization?)
 		self.cs_process = None
 
@@ -440,17 +440,13 @@ class CSConnector:
 		# prompt user for team server password
 		#
 		command = "{} {} {} {} {}".format(self.aggscriptcmd,
-										self.cs_host,
-										self.cs_port,
-										self.cs_user,
-										self.cs_pass)
+					          self.cs_host,
+					          self.cs_port,
+					          self.cs_user,
+						  self.cs_pass)
 		#print(command)
 		# spawn agscript process
-		self.cs_process = pexpect.spawn("{} {} {} {} {}".format(self.aggscriptcmd,
-																			self.cs_host,
-																			self.cs_port,
-																			self.cs_user,
-																			self.cs_pass), cwd=self.cs_directory)
+		self.cs_process = pexpect.spawn(command, cwd=f'{self.cs_directory}/client/')
 
 		# check if process is alive
 		if not self.cs_process.isalive():
@@ -592,7 +588,7 @@ def parseArguments():
 	# TODO: Make this requirement optional and if not provided, secure prompt for password
 	parser.add_argument("-p", "--password", help="the password for the teamserver, if not provided, you will be prompted", default=None)
 	parser.add_argument("-P", "--port", help="the port for the teamserver, default is 50050", default=50050)
-	parser.add_argument("-j", "--javadir", help="the path to the directory containing the Cobalt Strike JAR file", default="./")
+	parser.add_argument("-j", "--javadir", help="the path where Cobalt Strike is installed", default="./")
 
 	args = parser.parse_args()
 	return args
